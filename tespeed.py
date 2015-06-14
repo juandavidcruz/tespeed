@@ -6,7 +6,7 @@
 import argparse
 
 from SocksiPy import socks
-import socket
+import socket, time
 
 # Magic!
 def getaddrinfo(*args):
@@ -512,6 +512,9 @@ class TeSpeed:
                 (size, took))
             print_debug("\033[92mUpload speed: %0.2f %s/s\033[0m\n" % 
                 (speed, self.units))
+
+            # For printing formatted results
+            print_result("%s\t%s\t%s\t%s\tUp\n" % (time.time(), size, took, speed))
             
             if self.up_speed<speed:
                 self.up_speed=speed
@@ -565,6 +568,9 @@ class TeSpeed:
             print_debug("\033[91mDownload speed: %0.2f %s/s\033[0m\n" % 
                 (speed, self.units))
 
+            # For printing formatted results
+            print_result("%s\t%s\t%s\t%s\tDw\n" % (time.time(), size, took, speed))
+
             if self.down_speed<speed:
                 self.down_speed=speed
 
@@ -590,7 +596,7 @@ class TeSpeed:
         self.TestDownload()
         self.TestUpload()
 
-        print_result("%0.2f,%0.2f,\"%s\",\"%s\"\n" % (self.down_speed, self.up_speed, self.units, self.servers))
+        #print_result("%0.2f,%0.2f,\"%s\",\"%s\"\n" % (self.down_speed, self.up_speed, self.units, self.servers))
 
     def ListServers(self, num=0):
         
